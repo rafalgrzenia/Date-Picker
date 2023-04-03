@@ -1,8 +1,11 @@
+import { format, formatDistance, formatRelative, set, subDays } from "date-fns";
+
 // Elements
 
-const dateButton = document.querySelector(".date-picker-button");
-const datePicker = document.querySelector(".date-picker");
-
+const datePickerButton = document.querySelector(".date-picker-button");
+const dateBoard = document.querySelector(".date-picker");
+const dateButtons = document.querySelectorAll(".date");
+const fullDate = document.querySelector(".current-month");
 
 // Events
 
