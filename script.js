@@ -1,4 +1,4 @@
-import { format, formatDistance, formatRelative, set, subDays } from "date-fns";
+import { format } from "date-fns";
 
 // Elements
 
@@ -9,6 +9,6 @@ const fullDate = document.querySelector(".current-month");
 
 // Events
 
-dateButton.addEventListener("click", () => {
-    datePicker.classList.toggle("show");
-})
+datePickerButton.addEventListener("click", () => {
+  dateBoard.classList.toggle("show");
+});
