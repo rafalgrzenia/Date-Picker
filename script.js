@@ -12,3 +12,9 @@ const fullDate = document.querySelector(".current-month");
 datePickerButton.addEventListener("click", () => {
   dateBoard.classList.toggle("show");
 });
+
+// Functions
+
+function setDate(date) {
+  datePickerButton.innerText = format(new Date(date), "PPP");
+}
