@@ -49,5 +49,6 @@ days.forEach((button) =>
     const buttonInnerText = e.target.innerText;
     currentDate = setDate(currentDate, buttonInnerText);
     setCurrentDate(currentDate);
+    dateBoard.classList.toggle("show");
   })
 );
