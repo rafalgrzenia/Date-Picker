@@ -16,10 +16,34 @@ const previousMonthButton = document.querySelector(".prev-month-button");
 const nextMonthArrowButton = document.querySelector(".next-month-button");
 let currentDate = new Date();
 
+// Functions
+
+function setDate(date) {
+  datePickerButton.innerText = format(date, "MMMM do, yyyy");
+}
+
+function setMonth(selectedDate) {
+  currentMonth.innerText = format(selectedDate, "MMMM - yyyy");
+}
+
+setDate(currentDate);
+setMonth(currentDate);
+
 // Events
 
 datePickerButton.addEventListener("click", () => {
+  setMonth(new Date());
   dateBoard.classList.toggle("show");
+});
+
+previousMonthButton.addEventListener("click", () => {
+  currentDate = subMonths(currentDate, 1);
+  setMonth(currentDate);
+});
+
+nextMonthArrowButton.addEventListener("click", () => {
+  currentDate = addMonths(currentDate, 1);
+  setMonth(currentDate);
 });
 
 // dateButtons.forEach((button) =>
@@ -33,18 +57,3 @@ datePickerButton.addEventListener("click", () => {
 //     dateBoard.classList.toggle("show");
 //   })
 // );
-
-// Functions
-
-function setDate(date) {
-  datePickerButton.innerText = format(date, "MMMM do, yyyy");
-  datePickerButton.dataset.selectedDate = getUnixTime(date);
-}
-
-function setCurrentMonth(date) {
-  const selectedDate = fromUnixTime(datePickerButton.dataset.selectedDate);
-  currentMonth.innerText = format(selectedDate, "MMMM - yyyy");
-}
-
-setDate(new Date());
-setCurrentMonth(new Date());
