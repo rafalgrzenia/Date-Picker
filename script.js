@@ -1,4 +1,10 @@
-import { format, getUnixTime, fromUnixTime } from "date-fns";
+import {
+  format,
+  getUnixTime,
+  fromUnixTime,
+  subMonths,
+  addMonths,
+} from "date-fns";
 
 // Elements
 
@@ -8,6 +14,7 @@ const dateButtons = document.querySelectorAll(".date");
 const currentMonth = document.querySelector(".current-month");
 const previousMonthButton = document.querySelector(".prev-month-button");
 const nextMonthArrowButton = document.querySelector(".next-month-button");
+let currentDate = new Date();
 
 // Events
 
