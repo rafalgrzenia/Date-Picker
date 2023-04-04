@@ -22,6 +22,10 @@ function setMonth(selectedDate) {
   currentMonth.innerText = format(selectedDate, "MMMM - yyyy");
 }
 
+function clearSelectedDays() {
+  days.forEach((button) => button.classList.remove("selected"));
+}
+
 // Function Calls
 
 setCurrentDate(currentDate);
@@ -49,6 +53,8 @@ days.forEach((button) =>
     const buttonInnerText = e.target.innerText;
     currentDate = setDate(currentDate, buttonInnerText);
     setCurrentDate(currentDate);
+    clearSelectedDays();
+    e.target.classList.add("selected");
     dateBoard.classList.toggle("show");
   })
 );
