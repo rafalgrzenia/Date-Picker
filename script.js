@@ -1,16 +1,12 @@
-import {
-  format,
-  getUnixTime,
-  fromUnixTime,
-  subMonths,
-  addMonths,
-} from "date-fns";
+// Libraries
+
+import { format, subMonths, addMonths, setDate } from "date-fns";
 
 // Elements
 
 const datePickerButton = document.querySelector(".date-picker-button");
 const dateBoard = document.querySelector(".date-picker");
-const dateButtons = document.querySelectorAll(".date");
+const days = document.querySelectorAll(".date");
 const currentMonth = document.querySelector(".current-month");
 const previousMonthButton = document.querySelector(".prev-month-button");
 const nextMonthArrowButton = document.querySelector(".next-month-button");
@@ -18,7 +14,7 @@ let currentDate = new Date();
 
 // Functions
 
-function setDate(date) {
+function setCurrentDate(date) {
   datePickerButton.innerText = format(date, "MMMM do, yyyy");
 }
 
@@ -26,7 +22,9 @@ function setMonth(selectedDate) {
   currentMonth.innerText = format(selectedDate, "MMMM - yyyy");
 }
 
-setDate(currentDate);
+// Function Calls
+
+setCurrentDate(currentDate);
 setMonth(currentDate);
 
 // Events
@@ -46,14 +44,10 @@ nextMonthArrowButton.addEventListener("click", () => {
   setMonth(currentDate);
 });
 
-// dateButtons.forEach((button) =>
-//   button.addEventListener("click", (e) => {
-//     const BoardDate = fullDate.innerText;
-//     const day = e.target.innerText;
-//     const month = format(new Date(BoardDate), "M");
-//     const year = format(new Date(BoardDate), "Y");
-//     const date = `${year},${month},${day}`;
-//     setDate(date);
-//     dateBoard.classList.toggle("show");
-//   })
-// );
+days.forEach((button) =>
+  button.addEventListener("click", (e) => {
+    const buttonInnerText = e.target.innerText;
+    currentDate = setDate(currentDate, buttonInnerText);
+    setCurrentDate(currentDate);
+  })
+);
