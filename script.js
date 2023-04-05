@@ -77,3 +77,15 @@ currentMonthDays.forEach((button) =>
     dateBoard.classList.toggle("show");
   })
 );
+
+previousMonthDays.forEach((button) =>
+  button.addEventListener("click", (e) => {
+    const buttonInnerText = e.target.innerText;
+    currentDate = setDate(currentDate, buttonInnerText);
+    const previousMonth = subMonths(currentDate, 1);
+    setCurrentDate(previousMonth);
+    clearSelectedDays();
+    e.target.classList.add("selected");
+    dateBoard.classList.toggle("show");
+  })
+);
