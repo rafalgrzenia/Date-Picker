@@ -28,7 +28,7 @@ function setMonth(selectedDate) {
 }
 
 function selectCurrentDay(date) {
-  days.forEach((button) => {
+  currentMonthDays.forEach((button) => {
     if (button.innerText === format(date, "d")) {
       button.classList.add("selected");
     }
@@ -36,7 +36,8 @@ function selectCurrentDay(date) {
 }
 
 function clearSelectedDays() {
-  days.forEach((button) => button.classList.remove("selected"));
+  const allDays = document.querySelectorAll(".date");
+  allDays.forEach((button) => button.classList.remove("selected"));
 }
 
 // Function Calls
@@ -49,8 +50,10 @@ setMonth(currentDate);
 
 datePickerButton.addEventListener("click", () => {
   currentDate = new Date();
+  clearSelectedDays();
   setCurrentDate(currentDate);
   setMonth(currentDate);
+  selectCurrentDay(currentDate);
   dateBoard.classList.toggle("show");
 });
 
@@ -64,7 +67,7 @@ nextMonthArrowButton.addEventListener("click", () => {
   setMonth(currentDate);
 });
 
-days.forEach((button) =>
+currentMonthDays.forEach((button) =>
   button.addEventListener("click", (e) => {
     const buttonInnerText = e.target.innerText;
     currentDate = setDate(currentDate, buttonInnerText);
