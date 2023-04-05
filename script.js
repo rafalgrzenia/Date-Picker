@@ -6,7 +6,12 @@ import { format, subMonths, addMonths, setDate } from "date-fns";
 
 const datePickerButton = document.querySelector(".date-picker-button");
 const dateBoard = document.querySelector(".date-picker");
-const days = document.querySelectorAll(".date");
+const currentMonthDays = document.querySelectorAll(
+  ".date:not(.date-picker-other-month-date)"
+);
+const previousMonthDays = document.querySelectorAll(
+  ".date-picker-other-month-date"
+);
 const currentMonth = document.querySelector(".current-month");
 const previousMonthButton = document.querySelector(".prev-month-button");
 const nextMonthArrowButton = document.querySelector(".next-month-button");
