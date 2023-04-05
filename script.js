@@ -1,6 +1,14 @@
 // Libraries
 
-import { format, subMonths, addMonths, setDate } from "date-fns";
+import {
+  format,
+  subMonths,
+  addMonths,
+  setDate,
+  getMonth,
+  isEqual,
+  lightFormat,
+} from "date-fns";
 
 // Elements
 
@@ -59,11 +67,27 @@ datePickerButton.addEventListener("click", () => {
 
 previousMonthButton.addEventListener("click", () => {
   currentDate = subMonths(currentDate, 1);
+  const todayMonthNumber = lightFormat(new Date(), "MMMM-yyyy");
+  const previousMonthNumber = lightFormat(currentDate, "MMMM-yyyy");
+
+  if (todayMonthNumber === previousMonthNumber) {
+    selectCurrentDay(new Date());
+  } else {
+    clearSelectedDays();
+  }
   setMonth(currentDate);
 });
 
 nextMonthArrowButton.addEventListener("click", () => {
   currentDate = addMonths(currentDate, 1);
+  const todayMonthNumber = lightFormat(new Date(), "MMMM-yyyy");
+  const nextMonthNumber = lightFormat(currentDate, "MMMM-yyyy");
+
+  if (todayMonthNumber === nextMonthNumber) {
+    selectCurrentDay(new Date());
+  } else {
+    clearSelectedDays();
+  }
   setMonth(currentDate);
 });
 
