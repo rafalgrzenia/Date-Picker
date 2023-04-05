@@ -22,19 +22,30 @@ function setMonth(selectedDate) {
   currentMonth.innerText = format(selectedDate, "MMMM - yyyy");
 }
 
+function selectCurrentDay(date) {
+  days.forEach((button) => {
+    if (button.innerText === format(date, "d")) {
+      button.classList.add("selected");
+    }
+  });
+}
+
 function clearSelectedDays() {
   days.forEach((button) => button.classList.remove("selected"));
 }
 
 // Function Calls
 
+selectCurrentDay(currentDate);
 setCurrentDate(currentDate);
 setMonth(currentDate);
 
 // Events
 
 datePickerButton.addEventListener("click", () => {
-  setMonth(new Date());
+  currentDate = new Date();
+  setCurrentDate(currentDate);
+  setMonth(currentDate);
   dateBoard.classList.toggle("show");
 });
 
