@@ -1,14 +1,6 @@
 // Libraries
 
-import {
-  format,
-  subMonths,
-  addMonths,
-  setDate,
-  getMonth,
-  isEqual,
-  lightFormat,
-} from "date-fns";
+import { format, subMonths, addMonths, setDate, lightFormat } from "date-fns";
 
 // Elements
 
