@@ -40,11 +40,19 @@ function clearSelectedDays() {
   allDays.forEach((button) => button.classList.remove("selected"));
 }
 
+function compareDates(firstDate, secondDate) {
+  if (firstDate === secondDate) {
+    selectCurrentDay(new Date());
+  } else {
+    clearSelectedDays();
+  }
+}
+
 // Function Calls
 
 selectCurrentDay(currentDate);
-setCurrentDate(currentDate);
 setMonth(currentDate);
+setCurrentDate(currentDate);
 
 // Events
 
@@ -59,27 +67,17 @@ datePickerButton.addEventListener("click", () => {
 
 previousMonthButton.addEventListener("click", () => {
   currentDate = subMonths(currentDate, 1);
-  const todayMonthNumber = lightFormat(new Date(), "MMMM-yyyy");
-  const previousMonthNumber = lightFormat(currentDate, "MMMM-yyyy");
-
-  if (todayMonthNumber === previousMonthNumber) {
-    selectCurrentDay(new Date());
-  } else {
-    clearSelectedDays();
-  }
+  const currentMonthDate = lightFormat(new Date(), "MMMM-yyyy");
+  const previousMonthDate = lightFormat(currentDate, "MMMM-yyyy");
+  compareDates(currentMonthDate, previousMonthDate);
   setMonth(currentDate);
 });
 
 nextMonthArrowButton.addEventListener("click", () => {
   currentDate = addMonths(currentDate, 1);
-  const todayMonthNumber = lightFormat(new Date(), "MMMM-yyyy");
-  const nextMonthNumber = lightFormat(currentDate, "MMMM-yyyy");
-
-  if (todayMonthNumber === nextMonthNumber) {
-    selectCurrentDay(new Date());
-  } else {
-    clearSelectedDays();
-  }
+  const currentMonthDate = lightFormat(new Date(), "MMMM-yyyy");
+  const nextMonthDate = lightFormat(currentDate, "MMMM-yyyy");
+  compareDates(currentMonthDate, nextMonthDate);
   setMonth(currentDate);
 });
 
@@ -89,8 +87,7 @@ currentMonthDays.forEach((button) =>
     currentDate = setDate(currentDate, buttonInnerText);
     setCurrentDate(currentDate);
     clearSelectedDays();
-    e.target.classList.add("selected");
-    dateBoard.classList.toggle("show");
+    classToggle("show");
   })
 );
 
@@ -101,7 +98,10 @@ previousMonthDays.forEach((button) =>
     const previousMonth = subMonths(currentDate, 1);
     setCurrentDate(previousMonth);
     clearSelectedDays();
-    e.target.classList.add("selected");
-    dateBoard.classList.toggle("show");
+    classToggle("show");
   })
 );
+
+function classToggle(className) {
+  dateBoard.classList.toggle(className);
+}
