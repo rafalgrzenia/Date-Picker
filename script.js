@@ -20,9 +20,10 @@ import {
 
 const datePickerButton = document.querySelector(".date-picker-button");
 const dateBoard = document.querySelector(".date-picker");
-const currentMonthDays = document.querySelectorAll(
-  ".date:not(.date-picker-other-month-date)"
+const currentMonthDays = Array.from(
+  document.querySelectorAll(".date:not(.date-picker-other-month-date)")
 );
+
 const previousMonthDays = document.querySelectorAll(
   ".date-picker-other-month-date"
 );
@@ -64,18 +65,21 @@ function setupDates() {
     day.addEventListener("click", (e) => {
       const buttonInnerText = e.target.innerText;
       currentDate = setDate(currentDate, buttonInnerText);
-      setCurrentDate(currentDate);
-      clearSelectedDays();
+      setDatePickerMonth(currentDate);
       classToggle("show");
     })
   );
 
   otherMonthDays.forEach((day) =>
     day.addEventListener("click", () => {
-      const convertTimeStampToDate =  fromUnixTime(day.dataset.unixTime);
-      setCurrentDate(convertTimeStampToDate);
+      const convertTimeStampToDate = fromUnixTime(day.dataset.unixTime);
+      setDatePickerMonth(convertTimeStampToDate);
     })
   );
+}
+
+function setDatePickerMonth(date) {
+  datePickerButton.innerText = format(date, "MMMM do, yyyy");
 }
 
 function setCurrentDate(date) {
@@ -91,6 +95,7 @@ function selectCurrentDay(date) {
   currentMonthDays.forEach((button) => {
     if (button.innerText === format(date, "d")) {
       button.classList.add("selected");
+      console.log(button);
     }
   });
 }
@@ -115,6 +120,7 @@ function classToggle(className) {
 // Function Calls
 
 selectCurrentDay(currentDate);
+console.log("Current Day: " + selectCurrentDay(currentDate));
 setMonth(currentDate);
 setCurrentDate(currentDate);
 
