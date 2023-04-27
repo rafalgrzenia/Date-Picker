@@ -11,6 +11,9 @@ import {
   endOfWeek,
   endOfMonth,
   eachDayOfInterval,
+  getMonth,
+  getUnixTime,
+  fromUnixTime,
 } from "date-fns";
 
 // Elements
@@ -33,17 +36,46 @@ let currentDate = new Date();
 // Functions
 
 function setupDates() {
+  const currentDateMonth = getMonth(currentDate);
   const firstWeekStart = startOfWeek(startOfMonth(currentDate));
   const lastWeekEnd = endOfWeek(endOfMonth(currentDate));
   const dates = eachDayOfInterval({ start: firstWeekStart, end: lastWeekEnd });
   datePickerGrid.innerHTML = "";
 
   dates.forEach((date) => {
+    const selectedDayMonth = getMonth(date);
     const dateElement = document.createElement("button");
     dateElement.classList.add("date");
     dateElement.innerText = date.getDate();
+    const unixTime = getUnixTime(date);
+    dateElement.dataset.unixTime = unixTime;
     datePickerGrid.append(dateElement);
+    if (currentDateMonth !== selectedDayMonth) {
+      dateElement.classList.add("date-picker-other-month-date");
+    }
   });
+
+  const otherMonthDays = document.querySelectorAll(
+    ".date-picker-other-month-date"
+  );
+
+  const currentDays = document.querySelectorAll(".date");
+  currentDays.forEach((day) =>
+    day.addEventListener("click", (e) => {
+      const buttonInnerText = e.target.innerText;
+      currentDate = setDate(currentDate, buttonInnerText);
+      setCurrentDate(currentDate);
+      clearSelectedDays();
+      classToggle("show");
+    })
+  );
+
+  otherMonthDays.forEach((day) =>
+    day.addEventListener("click", () => {
+      const convertTimeStampToDate =  fromUnixTime(day.dataset.unixTime);
+      setCurrentDate(convertTimeStampToDate);
+    })
+  );
 }
 
 function setCurrentDate(date) {
@@ -115,23 +147,23 @@ nextMonthButton.addEventListener("click", () => {
   setMonth(currentDate);
 });
 
-currentMonthDays.forEach((button) =>
-  button.addEventListener("click", (e) => {
-    const buttonInnerText = e.target.innerText;
-    currentDate = setDate(currentDate, buttonInnerText);
-    setCurrentDate(currentDate);
-    clearSelectedDays();
-    classToggle("show");
-  })
-);
+// currentMonthDays.forEach((button) =>
+//   button.addEventListener("click", (e) => {
+//     const buttonInnerText = e.target.innerText;
+//     currentDate = setDate(currentDate, buttonInnerText);
+//     setCurrentDate(currentDate);
+//     clearSelectedDays();
+//     classToggle("show");
+//   })
+// );
 
-previousMonthDays.forEach((button) =>
-  button.addEventListener("click", (e) => {
-    const buttonInnerText = e.target.innerText;
-    currentDate = setDate(currentDate, buttonInnerText);
-    const previousMonth = subMonths(currentDate, 1);
-    setCurrentDate(previousMonth);
-    clearSelectedDays();
-    classToggle("show");
-  })
-);
+// previousMonthDays.forEach((button) =>
+//   button.addEventListener("click", (e) => {
+//     const buttonInnerText = e.target.innerText;
+//     currentDate = setDate(currentDate, buttonInnerText);
+//     const previousMonth = subMonths(currentDate, 1);
+//     setCurrentDate(previousMonth);
+//     clearSelectedDays();
+//     classToggle("show");
+//   })
+// );
