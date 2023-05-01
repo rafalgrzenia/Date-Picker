@@ -24,11 +24,6 @@ const dateBoard = document.querySelector(".date-picker");
 const currentMonthDays = Array.from(
   document.querySelectorAll(".date:not(.date-picker-other-month-date)")
 );
-
-const previousMonthDays = document.querySelectorAll(
-  ".date-picker-other-month-date"
-);
-
 const currentMonth = document.querySelector(".current-month");
 const previousMonthButton = document.querySelector(".prev-month-button");
 const nextMonthButton = document.querySelector(".next-month-button");
@@ -163,24 +158,3 @@ nextMonthButton.addEventListener("click", () => {
   setupDates();
   setMonth(currentDate);
 });
-
-// currentMonthDays.forEach((button) =>
-//   button.addEventListener("click", (e) => {
-//     const buttonInnerText = e.target.innerText;
-//     currentDate = setDate(currentDate, buttonInnerText);
-//     setCurrentDate(currentDate);
-//     clearSelectedDays();
-//     classToggle("show");
-//   })
-// );
-
-// previousMonthDays.forEach((button) =>
-//   button.addEventListener("click", (e) => {
-//     const buttonInnerText = e.target.innerText;
-//     currentDate = setDate(currentDate, buttonInnerText);
-//     const previousMonth = subMonths(currentDate, 1);
-//     setCurrentDate(previousMonth);
-//     clearSelectedDays();
-//     classToggle("show");
-//   })
-// );
